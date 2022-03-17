@@ -40,7 +40,7 @@ pipeline{
         }
         sh 'docker login --username AWS --password ${AWS_ECR_PASSWORD} ${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com'
         sh 'docker build -t ${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/${APP_NAME}:${TF_VAR_tag} .'
-        // sh 'docker push ${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/${APP_NAME}:${TF_VAR_tag}'
+        sh 'docker push ${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/${APP_NAME}:${TF_VAR_tag}'
       }
     }
     stage('Terraform Apply'){
