@@ -1,0 +1,32 @@
+import { DynamoDBClient, QueryCommand, QueryCommandOutput } from "@aws-sdk/client-dynamodb";
+import { unmarshall } from "@aws-sdk/util-dynamodb";
+import { ArticleIndexNotFoundError } from "./error";
+import { HTTPResponse } from "./http-response"
+import { ArticleIndex } from "./model";
+
+const dynamodbClient = new DynamoDBClient({ region: "us-east-1" });
+
+exports.lambdaHandler = async (event, context) => {
+  try {
+    const command = new QueryCommand({
+      TableName: "article-index", 
+      KeyConditionExpression: "#id = :id",
+      ExpressionAttributeNames:{
+        "#id": "id"
+      },
+      ExpressionAttributeValues: {
+        ":id": {"N": "1"}
+      },
+      ScanIndexForward: false,
+      Limit: 1
+    })
+    const response: QueryCommandOutput = await dynamodbClient.send(command);
+    if (response.$metadata.httpStatusCode == 200 && response.Count == 0) throw new ArticleIndexNotFoundError();
+    
+    const articleIndex: ArticleIndex = unmarshall(response.Items[0]) as ArticleIndex;
+    return new HTTPResponse(200, JSON.stringify(articleIndex));
+  } catch (err) {
+    console.error(err);
+    return new HTTPResponse(err["status"], JSON.stringify({"Error Message: ": err["message"]}));
+  }
+};
