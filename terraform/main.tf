@@ -34,5 +34,7 @@ module "api" {
   lambda_function_invoke_arn = module.lambda.function_invoke_arn
   lambda_function_name = module.lambda.function_name
   api_id = var.api_id
+  api_root_resource_id = var.api_root_resource_id
+  api_resource_id = var.api_resource_id
   api_execution_arn = var.api_execution_arn
 }

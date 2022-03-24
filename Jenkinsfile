@@ -7,7 +7,9 @@ pipeline{
     AWS_ECR_PASSWORD           = credentials('aws_ecr_password')
     APP_NAME                   = "get-article-index"
     TF_VAR_lambda_role         = "arn:aws:iam::${AWS_ACCOUNT_ID}:role/article-lambda"
-    TF_VAR_api_id              = "fbl8mpj7g7"
+    TF_VAR_api_id              = "7ey4ou4hpc"
+    TF_VAR_api_root_resource_id = "cmvyweqn7c"
+    TF_VAR_api_resource_id     = "eqmcb3"
     TF_VAR_api_execution_arn   = "arn:aws:execute-api:us-east-1:${AWS_ACCOUNT_ID}:${TF_VAR_api_id}"
     TF_VAR_tag                 = "${env.BUILD_NUMBER}"
   }
@@ -38,7 +40,7 @@ pipeline{
         dir('dist'){
           unstash 'distJs'
         }
-        sh 'docker login --username AWS --password ${AWS_ECR_PASSWORD} ${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com'
+        sh 'echo ${AWS_ECR_PASSWORD} | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com'
         sh 'docker build -t ${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/${APP_NAME}:${TF_VAR_tag} .'
         sh 'docker push ${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/${APP_NAME}:${TF_VAR_tag}'
       }
