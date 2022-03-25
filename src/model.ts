@@ -1,12 +1,9 @@
-type Timestamp = number;
-type ArticleTitle = string;
-type Edition = number;
 export type StatusCode = number;
 export type PageNumber = string;
 
 export interface ArticleIndex{
   id: number;
-  lastModified: Timestamp;
+  lastModified: number;
   count: number;
   body: {
     [pageNumber: string]: ArticleMetadata[]
@@ -14,11 +11,11 @@ export interface ArticleIndex{
 }
 
 export interface ArticleMetadata{
-  firstPublished: Timestamp;
-  lastModified: Timestamp;
-  title: ArticleTitle;
-  subtitle: ArticleTitle;
+  firstPublished: number;
+  lastModified: number;
+  title: string;
+  subtitle: string;
   type: string;
-  edition: Edition;
+  edition: number;
   views: number;
 }

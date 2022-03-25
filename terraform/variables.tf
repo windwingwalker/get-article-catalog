@@ -8,7 +8,6 @@ variable "aws_region" {
 
 variable "app_name" {
   type = string 
-  default = "get-article-index"
 }
 
 variable "lambda_role" {
