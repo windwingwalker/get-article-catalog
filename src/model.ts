@@ -19,4 +19,5 @@ export interface ArticleMetadata{
   edition: number;
   views: number;
   tags: string[];
+  series: string;
 }
