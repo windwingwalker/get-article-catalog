@@ -1,3 +1,7 @@
+data "aws_lambda_function" "default" {
+  function_name = var.app_name
+}
+
 resource "aws_api_gateway_method" "get" {
   http_method   = "GET"
   authorization = "NONE"
@@ -11,7 +15,9 @@ resource "aws_api_gateway_integration" "get" {
   http_method             = aws_api_gateway_method.get.http_method
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
-  uri                     = var.lambda_function_invoke_arn
+  # uri                     = var.lambda_function_invoke_arn
+  uri                     = "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/${aws_lambda_function.default.arn}:$${stageVariables.alias}/invocations"
+
   depends_on              = [aws_api_gateway_method.get]
 }
 
