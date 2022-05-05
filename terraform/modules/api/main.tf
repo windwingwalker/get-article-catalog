@@ -30,7 +30,7 @@ resource "aws_api_gateway_integration" "get" {
 }
 
 
-resource "aws_api_gateway_deployment" "example" {
+resource "aws_api_gateway_deployment" "default" {
   rest_api_id = data.aws_api_gateway_rest_api.default.id
   stage_name = "dev"
 
@@ -43,7 +43,7 @@ resource "aws_api_gateway_deployment" "example" {
     #       resources will show a difference after the initial implementation.
     #       It will stabilize to only change when resources change afterwards.
     redeployment = sha1(jsonencode([
-      aws_api_gateway_resource.default.id,
+      data.aws_api_gateway_resource.default.id,
       aws_api_gateway_method.get.id,
       aws_api_gateway_integration.get.id,
     ]))
