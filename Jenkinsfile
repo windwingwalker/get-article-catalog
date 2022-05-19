@@ -6,12 +6,14 @@ pipeline{
     AWS_ACCOUNT_ID             = credentials('aws_account_id')
 
     APP_NAME                   = "article"
+    RESOURCE_NAME              = "article-catalog"
     MS_NAME                    = "get-article-catalog"
 
     TF_VAR_lambda_role         = "arn:aws:iam::${AWS_ACCOUNT_ID}:role/article-lambda"
     TF_VAR_tag                 = "${env.BUILD_NUMBER}"
     TF_VAR_app_name            = "${APP_NAME}"
     TF_VAR_ms_name             = "${MS_NAME}"
+    TF_VAR_resource_name       = "${RESOURCE_NAME}"
   }
   tools {
     terraform 'TerraformDefault'

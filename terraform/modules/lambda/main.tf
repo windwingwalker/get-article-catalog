@@ -25,6 +25,12 @@ resource "aws_lambda_function" "default" {
     aws_cloudwatch_log_group.default
   ]
   publish = true
+
+  environment {
+    variables = {
+      RESOURCE_NAME = var.resource_name
+    }
+  }
 }
 
 resource "aws_cloudwatch_log_group" "default" {

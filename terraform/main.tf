@@ -21,7 +21,7 @@ provider "aws" {
   region = var.aws_region
   default_tags {
     tags = {
-      "app" = "article"
+      "app" = var.app_name
     }
   }
 }
@@ -29,6 +29,7 @@ provider "aws" {
 module "lambda" {
   source = "./modules/lambda/"
   ms_name = var.ms_name
+  resource_name = var.resource_name
   lambda_role = var.lambda_role
   tag = var.tag
 }
@@ -37,6 +38,7 @@ module "api" {
   source = "./modules/api/"
   ms_name = var.ms_name
   app_name = var.app_name
+  resource_name = var.resource_name
   aws_region = var.aws_region
   function_arn = module.lambda.function_arn
 }
