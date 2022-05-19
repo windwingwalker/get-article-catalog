@@ -5,11 +5,13 @@ pipeline{
     AWS_SECRET_ACCESS_KEY      = credentials('aws_secret_access_key')
     AWS_ACCOUNT_ID             = credentials('aws_account_id')
 
-    APP_NAME                   = "get-article-index"
+    APP_NAME                   = "article"
+    MS_NAME                    = "get-article-catalog"
 
     TF_VAR_lambda_role         = "arn:aws:iam::${AWS_ACCOUNT_ID}:role/article-lambda"
     TF_VAR_tag                 = "${env.BUILD_NUMBER}"
     TF_VAR_app_name            = "${APP_NAME}"
+    TF_VAR_ms_name             = "${MS_NAME}"
   }
   tools {
     terraform 'TerraformDefault'

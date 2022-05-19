@@ -1,5 +1,5 @@
 resource "aws_ecr_repository" "default" {
-  name                 = var.app_name
+  name                 = var.ms_name
   image_tag_mutability = "IMMUTABLE"
 
   image_scanning_configuration {
@@ -14,7 +14,7 @@ resource "aws_lambda_alias" "default" {
 }
 
 resource "aws_lambda_function" "default" {
-  function_name = var.app_name
+  function_name = var.ms_name
 
   package_type = "Image"
   image_uri = "${aws_ecr_repository.default.repository_url}:${var.tag}"
@@ -28,7 +28,7 @@ resource "aws_lambda_function" "default" {
 }
 
 resource "aws_cloudwatch_log_group" "default" {
-  name = "/aws/lambda/${var.app_name}"
+  name = "/aws/lambda/${var.ms_name}"
 
   retention_in_days = 30
 }

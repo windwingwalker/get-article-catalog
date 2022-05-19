@@ -1,10 +1,10 @@
 data "aws_api_gateway_rest_api" "default" {
-  name = "article-gateway"
+  name = "${var.app_name}-gateway"
 }
 
 data "aws_api_gateway_resource" "default" {
   rest_api_id = data.aws_api_gateway_rest_api.default.id
-  path        = "/article-index"
+  path        = "/article-catalog"
 }
 
 resource "aws_api_gateway_method" "get" {
@@ -24,7 +24,6 @@ resource "aws_api_gateway_integration" "get" {
 
   depends_on              = [aws_api_gateway_method.get]
 }
-
 
 resource "aws_api_gateway_deployment" "default" {
   rest_api_id = data.aws_api_gateway_rest_api.default.id
@@ -53,7 +52,7 @@ resource "aws_api_gateway_deployment" "default" {
 resource "aws_lambda_permission" "api_gw" {
   statement_id  = "AllowExecutionFromAPIGateway"
   action        = "lambda:InvokeFunction"
-  function_name = var.app_name
+  function_name = var.ms_name
   principal     = "apigateway.amazonaws.com"
 
   source_arn = "${data.aws_api_gateway_rest_api.default.execution_arn}/*/*"

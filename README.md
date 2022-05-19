@@ -5,7 +5,7 @@ This is a microservice of an application. The application consists of operations
 
 ## Microservices in same the application
 - [get-article](https://github.com/windwingwalker/get-article)
-- [get-article-index](https://github.com/windwingwalker/get-article-index)
+- [get-article-catalog](https://github.com/windwingwalker/get-article-catalog)
 - [create-article](https://github.com/windwingwalker/create-article)
 - [update-article](https://github.com/windwingwalker/update-article)
 - [collect-article-reader-count](https://github.com/windwingwalker/collect-article-reader-count)
