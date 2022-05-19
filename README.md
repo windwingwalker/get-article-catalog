@@ -1,4 +1,4 @@
-# Get Article Index
+# Get Article Catalog
 
 ## Background
 This is a microservice of an application. The application consists of operations of an article, such as create an article, get an article, etc.
