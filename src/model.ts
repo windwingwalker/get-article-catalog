@@ -1,13 +1,8 @@
-export type StatusCode = number;
-export type PageNumber = string;
-
-export interface ArticleIndex{
+export interface ArticleCatalog{
   id: number;
   lastModified: number;
   count: number;
-  body: {
-    [pageNumber: string]: ArticleMetadata[]
-  };
+  body: ArticleMetadata[];
 }
 
 export interface ArticleMetadata{

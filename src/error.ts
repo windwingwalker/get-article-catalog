@@ -13,9 +13,9 @@ class MyError extends Error {
   }
 }
 
-export class ArticleIndexNotFoundError extends MyError{
+export class ArticleCatalogNotFoundError extends MyError{
   constructor() {
-    super(`Article index was not found.`, 404);
+    super(`Article catalog was not found.`, 404);
   }
 }
 
@@ -31,8 +31,8 @@ export class ArticleUploadError extends MyError{
   }
 }
 
-export class ArticleIndexUploadError extends MyError{
+export class ArticleCatalogUploadError extends MyError{
   constructor() {
-    super(`Article index was failed to upload.`, 500);
+    super(`Article catalog was failed to upload.`, 500);
   }
 }
