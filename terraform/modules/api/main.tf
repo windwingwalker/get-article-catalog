@@ -7,22 +7,22 @@ data "aws_api_gateway_resource" "default" {
   path        = "/article-catalog"
 }
 
-resource "aws_api_gateway_method" "get" {
+resource "aws_api_gateway_method" "default" {
   http_method   = "GET"
   authorization = "NONE"
   resource_id   = data.aws_api_gateway_resource.default.id
   rest_api_id   = data.aws_api_gateway_rest_api.default.id
 }
 
-resource "aws_api_gateway_integration" "get" {
+resource "aws_api_gateway_integration" "default" {
   rest_api_id             = data.aws_api_gateway_rest_api.default.id
   resource_id             = data.aws_api_gateway_resource.default.id
-  http_method             = aws_api_gateway_method.get.http_method
+  http_method             = aws_api_gateway_method.default.http_method
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
   uri                     = "arn:aws:apigateway:${var.aws_region}:lambda:path/2015-03-31/functions/${var.function_arn}:$${stageVariables.alias}/invocations"
 
-  depends_on              = [aws_api_gateway_method.get]
+  depends_on              = [aws_api_gateway_method.default]
 }
 
 resource "aws_api_gateway_deployment" "default" {
@@ -39,8 +39,8 @@ resource "aws_api_gateway_deployment" "default" {
     #       It will stabilize to only change when resources change afterwards.
     redeployment = sha1(jsonencode([
       data.aws_api_gateway_resource.default.id,
-      aws_api_gateway_method.get.id,
-      aws_api_gateway_integration.get.id,
+      aws_api_gateway_method.default.id,
+      aws_api_gateway_integration.default.id,
     ]))
   }
 
@@ -58,9 +58,9 @@ resource "aws_lambda_permission" "api_gw" {
   source_arn = "${data.aws_api_gateway_rest_api.default.execution_arn}/*/*"
 }
 
-resource "aws_api_gateway_method_response" "get_200" {
+resource "aws_api_gateway_method_response" "default" {
   rest_api_id = data.aws_api_gateway_rest_api.default.id
   resource_id = data.aws_api_gateway_resource.default.id
-  http_method = aws_api_gateway_method.get.http_method
+  http_method = aws_api_gateway_method.default.http_method
   status_code = 200
 }
