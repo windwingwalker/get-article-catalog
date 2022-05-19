@@ -43,7 +43,7 @@ pipeline{
           unstash 'distJs'
         }
         script{
-          image = docker.build("${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/${APP_NAME}:${TF_VAR_tag}")
+          image = docker.build("${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/${MS_NAME}:${TF_VAR_tag}")
         }
       }
     }
