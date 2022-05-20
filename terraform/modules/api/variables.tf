@@ -1,12 +1,12 @@
-variable "ms_name" {
-  type = string 
-}
-
 variable "app_name" {
   type = string 
 }
 
 variable "resource_name" {
+  type = string 
+}
+
+variable "ms_name" {
   type = string 
 }
 

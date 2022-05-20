@@ -9,7 +9,7 @@ const dynamodbClient = new DynamoDBClient({ region: "us-east-1" });
 exports.lambdaHandler = async (event, context) => {
   try {
     const command = new QueryCommand({
-      TableName: process.env.RESOURCE_NAME, 
+      TableName: "article-catalog", 
       KeyConditionExpression: "#id = :id",
       ExpressionAttributeNames:{
         "#id": "id"
